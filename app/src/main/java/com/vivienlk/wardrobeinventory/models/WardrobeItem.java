@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.vivienlk.wardrobeinventory.database.DatabaseHelper;
+import com.vivienlk.wardrobeinventory.database.WardrobeDbSchema;
 import com.vivienlk.wardrobeinventory.database.WardrobeDbSchema.WardrobeTable.Cols;
 
 import java.text.DateFormat;
@@ -65,6 +66,19 @@ public class WardrobeItem {
         values.put(Cols.PRICE, mPrice);
         values.put(Cols.BRAND, mBrand);
         return values;
+    }
+
+    public void save() {
+        ContentValues values = getContentValues();
+        mDatabase.insert(WardrobeDbSchema.WardrobeTable.NAME, null, values);
+    }
+
+    public void update() {
+        ContentValues values = getContentValues();
+        mDatabase.update(WardrobeDbSchema.WardrobeTable.NAME,
+                values,
+                Cols.UUID + " = ?",
+                new String[] { mId.toString() });
     }
 
 
