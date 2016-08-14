@@ -28,6 +28,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 WardrobeTable.Cols.OCCASIONS + ", " +
                 WardrobeTable.Cols.SEASONS + ", " +
                 WardrobeTable.Cols.FIT + ", " +
+                WardrobeTable.Cols.LENGTH + ", " +
                 WardrobeTable.Cols.PRICE + ", " +
                 WardrobeTable.Cols.BRAND + ")"
         );
