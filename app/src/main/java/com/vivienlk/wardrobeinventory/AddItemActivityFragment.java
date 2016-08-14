@@ -1,19 +1,24 @@
 package com.vivienlk.wardrobeinventory;
 
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.text.method.CharacterPickerDialog;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.vivienlk.wardrobeinventory.models.WardrobeItem;
+
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -53,5 +58,17 @@ public class AddItemActivityFragment extends Fragment {
                 array_resource, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         return adapter;
+    }
+
+    @OnClick(R.id.saveButton)
+    public void saveItem() {
+        double price = Double.parseDouble(mPrice.getText().toString());
+        WardrobeItem item = new WardrobeItem(getContext(), UUID.randomUUID(),
+                mItem.getSelectedItem().toString(), mDate.getText().toString(), mColors.getText().toString(),
+                mTextures.getText().toString(), mOccasions.getSelectedItem().toString(), mSeasons.getSelectedItem().toString(),
+                mFit.getProgress() + "", mLength.getSelectedItem().toString(), price,
+                mBrand.getText().toString());
+        item.save();
+        Toast.makeText(getContext(), "Saved!", Toast.LENGTH_LONG).show();
     }
 }
