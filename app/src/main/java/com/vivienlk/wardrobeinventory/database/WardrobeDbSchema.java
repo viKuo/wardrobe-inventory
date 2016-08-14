@@ -19,7 +19,6 @@ public class WardrobeDbSchema {
             public static final String LENGTH = "length";
             public static final String PRICE = "price";
             public static final String BRAND = "brand";
-
         }
     }
 }
