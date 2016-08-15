@@ -1,7 +1,6 @@
-package com.vivienlk.wardrobeinventory;
+package com.vivienlk.wardrobeinventory.UI;
 
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 public class ListItemsActivity extends SingleFragmentActivity {
