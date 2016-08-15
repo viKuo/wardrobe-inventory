@@ -11,8 +11,4 @@ public class ListItemsActivity extends SingleFragmentActivity {
         return new ListItemsActivityFragment();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 }

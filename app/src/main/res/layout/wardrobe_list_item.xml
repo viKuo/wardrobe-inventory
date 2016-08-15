@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:padding="5dp">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/itemImageView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/photo_default"
+        android:maxHeight="100dp"
+        android:maxWidth="100dp"
+        android:adjustViewBounds="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Blouse"
+        android:id="@+id/itemTextView"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/itemImageView"
+        android:layout_toEndOf="@+id/itemImageView"
+        android:textSize="24sp"
+        android:padding="5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/colorsTextView"
+        android:layout_below="@+id/itemTextView"
+        android:layout_toRightOf="@+id/itemImageView"
+        android:layout_toEndOf="@+id/itemImageView"
+        tools:text="blue, white, gold"
+        android:paddingLeft="5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/occasionTextView"
+        android:layout_below="@+id/colorsTextView"
+        android:layout_toRightOf="@+id/itemImageView"
+        android:layout_toEndOf="@+id/itemImageView"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        tools:text="Casual"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/seasonTextView"
+        android:layout_below="@+id/occasionTextView"
+        android:layout_toRightOf="@+id/itemImageView"
+        android:layout_toEndOf="@+id/itemImageView"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        tools:text="Summer"/>
+</RelativeLayout>
