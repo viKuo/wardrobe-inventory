@@ -64,4 +64,5 @@
         <item>Long</item>
         <item>Extra Long</item>
     </string-array>
+    <string name="title_activity_list_items">ListItemsActivity</string>
 </resources>

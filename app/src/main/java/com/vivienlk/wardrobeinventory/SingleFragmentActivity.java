@@ -30,5 +30,15 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
             FragmentTransaction fm = fragmentManager.beginTransaction();
             fm.add(R.id.fragment_container, fragment).commit();
         }
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        assert fab != null;
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), AddItemActivity.class);
+                startActivity(i);
+            }
+        });
     }
 }

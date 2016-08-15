@@ -33,9 +33,15 @@ public class MainActivityFragment extends Fragment {
 
     }
 
-    @OnClick(R.id.add_new_item_button) void submit() {
+    @OnClick(R.id.add_new_item_button) void addItem() {
         Intent i = new Intent(getActivity(), AddItemActivity.class);
         startActivity(i);
+    }
+
+    @OnClick(R.id.view_all_items_button) void listItems() {
+        Intent i = new Intent(getActivity(), ListItemsActivity.class);
+        startActivity(i);
+
     }
 
     public interface onFragmentInteractionListener {
