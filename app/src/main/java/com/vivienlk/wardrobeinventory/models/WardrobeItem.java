@@ -2,6 +2,7 @@ package com.vivienlk.wardrobeinventory.models;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.vivienlk.wardrobeinventory.database.DatabaseHelper;
@@ -79,6 +80,19 @@ public class WardrobeItem {
                 values,
                 Cols.UUID + " = ?",
                 new String[] { mId.toString() });
+    }
+
+    private Cursor queryItem (String whereClause, String[] whereArgs) {
+        Cursor cursor = mDatabase.query(
+                WardrobeDbSchema.WardrobeTable.NAME,
+                null, // null selects all columns
+                whereClause,
+                whereArgs,
+                null, //group by
+                null, //having
+                null //order by
+        );
+        return cursor;
     }
 
 
