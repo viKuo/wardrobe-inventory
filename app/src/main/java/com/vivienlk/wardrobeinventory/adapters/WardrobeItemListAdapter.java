@@ -9,12 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.vivienlk.wardrobeinventory.R;
-import com.vivienlk.wardrobeinventory.UI.ListItemsActivityFragment;
 import com.vivienlk.wardrobeinventory.models.WardrobeItem;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,10 +23,10 @@ import butterknife.ButterKnife;
  * Created by Vivien on 8/14/2016.
  */
 public class WardrobeItemListAdapter extends ArrayAdapter<WardrobeItem>{
+    List<WardrobeItem> mItems;
 
-    public WardrobeItemListAdapter(Context context, ArrayList<WardrobeItem> items) {
+    public WardrobeItemListAdapter(Context context, List<WardrobeItem> items) {
         super(context, 0, items);
-
     }
 
 
@@ -38,7 +38,12 @@ public class WardrobeItemListAdapter extends ArrayAdapter<WardrobeItem>{
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.wardrobe_list_item, parent, false);
-            viewHolder = new ViewHolder(getContext(), convertView);
+            viewHolder = new ViewHolder();
+            viewHolder.mImageView = (ImageView) convertView.findViewById(R.id.itemImageView);
+            viewHolder.mItemView = (TextView) convertView.findViewById(R.id.itemTextView);
+            viewHolder.mSeasonView = (TextView) convertView.findViewById(R.id.seasonTextView);
+            viewHolder.mColorsView = (TextView) convertView.findViewById(R.id.colorsTextView);
+            viewHolder.mOccasionView = (TextView) convertView.findViewById(R.id.occasionTextView);
             // Cache the viewHolder object inside the fresh view
             convertView.setTag(viewHolder);
         } else {
@@ -53,16 +58,20 @@ public class WardrobeItemListAdapter extends ArrayAdapter<WardrobeItem>{
         return convertView;
     }
 
-    private class ViewHolder {
-        @BindView(R.id.itemImageView) ImageView mImageView;
-        @BindView(R.id.itemTextView) TextView mItemView;
-        @BindView(R.id.occasionTextView) TextView mOccasionView;
-        @BindView(R.id.seasonTextView) TextView mSeasonView;
-        @BindView(R.id.colorsTextView) TextView mColorsView;
+    public int getItemCount() {
+        return mItems.size();
+    }
 
-        public ViewHolder(Context context, View view) {
-            ButterKnife.bind(getContext(), view);
-        }
+    public void setItems(List<WardrobeItem> items) {
+        mItems = items;
+    }
+
+    private class ViewHolder {
+        ImageView mImageView;
+        TextView mItemView;
+        TextView mOccasionView;
+        TextView mSeasonView;
+        TextView mColorsView;
 
     }
 }

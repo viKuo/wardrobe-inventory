@@ -11,12 +11,17 @@ import com.vivienlk.wardrobeinventory.R;
 import com.vivienlk.wardrobeinventory.adapters.WardrobeItemListAdapter;
 import com.vivienlk.wardrobeinventory.models.WardrobeItem;
 
-import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class ListItemsActivityFragment extends ListFragment {
+    ListView mListView;
+    WardrobeItemListAdapter mAdapter;
 
     public ListItemsActivityFragment() {
     }
@@ -24,22 +29,25 @@ public class ListItemsActivityFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_list_items, container, false);
-        // Construct the data source
-        ArrayList<WardrobeItem> arrayOfItems = new ArrayList<WardrobeItem>();
-
-        // Create the adapter to convert the array to views
-        WardrobeItemListAdapter adapter = new WardrobeItemListAdapter(this, arrayOfItems);
-        // Attach the adapter to a ListView
-        ListView listView = (ListView) view.findViewById(R.id.allWardrobeItemsList);
-        listView.setAdapter(adapter);
-        return view;
+        return inflater.inflate(R.layout.fragment_list_items, container, false);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        mListView = getListView();
+        updateUI();
+    }
 
-
+    private void updateUI() {
+        WardrobeItem item = new WardrobeItem(getContext());
+        List<WardrobeItem> wardrobeItemList = item.all();
+        if (mAdapter == null) {
+            mAdapter = new WardrobeItemListAdapter(getContext(), wardrobeItemList);
+            mListView.setAdapter(mAdapter);
+        } else {
+            mAdapter.setItems(wardrobeItemList);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 }

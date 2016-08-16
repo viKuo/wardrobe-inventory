@@ -3,16 +3,19 @@ package com.vivienlk.wardrobeinventory.models;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorWrapper;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.vivienlk.wardrobeinventory.database.DatabaseHelper;
-import com.vivienlk.wardrobeinventory.database.WardrobeDbSchema;
-import com.vivienlk.wardrobeinventory.database.WardrobeDbSchema.WardrobeTable.Cols;
+
+import com.vivienlk.wardrobeinventory.database.WardrobeDbSchema.WardrobeTable;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -53,38 +56,74 @@ public class WardrobeItem {
         mBrand = brand;
     }
 
+    public WardrobeItem (Context context) {
+        mContext = context.getApplicationContext();
+        mDatabase = new DatabaseHelper(mContext)
+                .getWritableDatabase();
+    }
+
     private ContentValues getContentValues() {
         ContentValues values = new ContentValues();
-        values.put(Cols.UUID, mId.toString());
-        values.put(Cols.ITEM, mItem);
-        values.put(Cols.DATE, mDate);
-        values.put(Cols.COLORS, mColors);
-        values.put(Cols.TEXTURES, mTextures);
-        values.put(Cols.OCCASIONS, mOccasions);
-        values.put(Cols.SEASONS, mSeasons);
-        values.put(Cols.FIT, mFit);
-        values.put(Cols.LENGTH, mLength);
-        values.put(Cols.PRICE, mPrice);
-        values.put(Cols.BRAND, mBrand);
+        values.put(WardrobeTable.Cols.UUID, mId.toString());
+        values.put(WardrobeTable.Cols.ITEM, mItem);
+        values.put(WardrobeTable.Cols.DATE, mDate);
+        values.put(WardrobeTable.Cols.COLORS, mColors);
+        values.put(WardrobeTable.Cols.TEXTURES, mTextures);
+        values.put(WardrobeTable.Cols.OCCASIONS, mOccasions);
+        values.put(WardrobeTable.Cols.SEASONS, mSeasons);
+        values.put(WardrobeTable.Cols.FIT, mFit);
+        values.put(WardrobeTable.Cols.LENGTH, mLength);
+        values.put(WardrobeTable.Cols.PRICE, mPrice);
+        values.put(WardrobeTable.Cols.BRAND, mBrand);
         return values;
     }
 
     public void save() {
         ContentValues values = getContentValues();
-        mDatabase.insert(WardrobeDbSchema.WardrobeTable.NAME, null, values);
+        mDatabase.insert(WardrobeTable.NAME, null, values);
     }
 
     public void update() {
         ContentValues values = getContentValues();
-        mDatabase.update(WardrobeDbSchema.WardrobeTable.NAME,
+        mDatabase.update(WardrobeTable.NAME,
                 values,
-                Cols.UUID + " = ?",
+                WardrobeTable.Cols.UUID + " = ?",
                 new String[] { mId.toString() });
     }
 
-    private Cursor queryItem (String whereClause, String[] whereArgs) {
+    public WardrobeItem getWardrobeItem(UUID id) {
+        WardrobeCursorWrapper cursor = queryItem(WardrobeTable.Cols.UUID + " = ?",
+                new String[] { id.toString() });
+
+        try {
+            if (cursor.getCount() == 0 ) {
+                return null;
+            }
+            cursor.moveToFirst();
+            return cursor.getWardrobeItem();
+        } finally {
+            cursor.close();
+        }
+    }
+
+    public List<WardrobeItem> all() {
+        List<WardrobeItem> items = new ArrayList<>();
+        WardrobeCursorWrapper cursor = queryItem(null, null);
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                items.add(cursor.getWardrobeItem());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+        return items;
+    }
+
+    private WardrobeCursorWrapper queryItem (String whereClause, String[] whereArgs) {
         Cursor cursor = mDatabase.query(
-                WardrobeDbSchema.WardrobeTable.NAME,
+                WardrobeTable.NAME,
                 null, // null selects all columns
                 whereClause,
                 whereArgs,
@@ -92,7 +131,34 @@ public class WardrobeItem {
                 null, //having
                 null //order by
         );
-        return cursor;
+        return new WardrobeCursorWrapper(cursor, mContext);
+    }
+
+    private class WardrobeCursorWrapper extends CursorWrapper {
+        Context mContext;
+        public WardrobeCursorWrapper(Cursor cursor, Context context) {
+            super(cursor);
+            mContext = context;
+        }
+
+        public WardrobeItem getWardrobeItem() {
+            UUID uuidString = UUID.fromString(getString(getColumnIndex(WardrobeTable.Cols.UUID)));
+            String item  = getString(getColumnIndex(WardrobeTable.Cols.ITEM));
+            String date = getString(getColumnIndex(WardrobeTable.Cols.DATE));
+            String colors = getString(getColumnIndex(WardrobeTable.Cols.COLORS));
+            String textures = getString(getColumnIndex(WardrobeTable.Cols.TEXTURES));
+            String occasions = getString(getColumnIndex(WardrobeTable.Cols.OCCASIONS));
+            String seasons = getString(getColumnIndex(WardrobeTable.Cols.SEASONS));
+            String fit = getString(getColumnIndex(WardrobeTable.Cols.FIT));
+            String length = getString(getColumnIndex(WardrobeTable.Cols.LENGTH));
+            double price  = Double.parseDouble(getString(getColumnIndex(WardrobeTable.Cols.PRICE)));
+            String brand = getString(getColumnIndex(WardrobeTable.Cols.BRAND));
+
+            WardrobeItem wardrobeItem = new WardrobeItem(mContext, uuidString, item,
+                    date, colors, textures, occasions,
+                    seasons, fit, length, price, brand);
+            return wardrobeItem;
+        }
     }
 
 
