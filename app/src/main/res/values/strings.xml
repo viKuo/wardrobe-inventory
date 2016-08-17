@@ -17,29 +17,29 @@
     <string name="save">Save</string>
 
     <string-array name="item_types_array">
-        <item>Blouses</item>
-        <item>Tees</item>
-        <item>Tunics</item>
-        <item>Sweaters</item>
-        <item>Dresses</item>
-        <item>Shorts</item>
-        <item>Pants</item>
-        <item>Leggings</item>
-        <item>Rompers</item>
-        <item>Jackets</item>
+        <item>Blouse</item>
+        <item>Tee</item>
+        <item>Tunic</item>
+        <item>Sweater</item>
+        <item>Dress</item>
+        <item>Short</item>
+        <item>Pant</item>
+        <item>Legging</item>
+        <item>Romper</item>
+        <item>Jacket</item>
         <item>Outerwear</item>
-        <item>Swimware</item>
-        <item>Intimates</item>
-        <item>Sandals</item>
-        <item>Boots</item>
-        <item>Heels</item>
-        <item>Flats</item>
-        <item>Sneakers</item>
-        <item>Hats</item>
-        <item>Scarves</item>
+        <item>Swimwear</item>
+        <item>Intimate</item>
+        <item>Sandal</item>
+        <item>Boot</item>
+        <item>Heel</item>
+        <item>Flat</item>
+        <item>Sneaker</item>
+        <item>Hat</item>
+        <item>Scarf</item>
         <item>Jewelry</item>
-        <item>Bags</item>
-        <item>Belts</item>
+        <item>Bag</item>
+        <item>Belt</item>
         <item>Other</item>
     </string-array>
 
