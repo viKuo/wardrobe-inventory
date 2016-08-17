@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="148dp"
         android:layout_height="196dp"
-        android:id="@+id/photo"
+        android:id="@+id/photoView"
         android:layout_gravity="center_horizontal|top"
         android:src="@drawable/photo_default"
         android:layout_alignParentTop="true"

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.CursorWrapper;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -12,6 +13,7 @@ import com.vivienlk.wardrobeinventory.database.DatabaseHelper;
 
 import com.vivienlk.wardrobeinventory.database.WardrobeDbSchema.WardrobeTable;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -62,6 +64,7 @@ public class WardrobeItem implements Parcelable{
         mContext = context.getApplicationContext();
         mDatabase = new DatabaseHelper(mContext)
                 .getWritableDatabase();
+        mId = UUID.randomUUID();
     }
 
     private ContentValues getContentValues() {
@@ -211,6 +214,19 @@ public class WardrobeItem implements Parcelable{
             return new WardrobeItem[size];
         }
     };
+
+    public File getPhotoFile() {
+        File externalFilesDir = mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        if (externalFilesDir == null) {
+            return null;
+        }
+
+        return new File(externalFilesDir, getPhotoFilename());
+    }
+
+    private String getPhotoFilename() {
+        return "IMG_" + mId + ".jpg";
+    }
 
     public String getItem() {
         return mItem;
