@@ -73,5 +73,6 @@ public class WardrobeItemListAdapter extends ArrayAdapter<WardrobeItem>{
         TextView mSeasonView;
         TextView mColorsView;
 
+
     }
 }

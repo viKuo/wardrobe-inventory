@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.CursorWrapper;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.vivienlk.wardrobeinventory.database.DatabaseHelper;
 
@@ -21,7 +23,7 @@ import java.util.UUID;
 /**
  * Created by Vivien on 8/14/2016.
  */
-public class WardrobeItem {
+public class WardrobeItem implements Parcelable{
     private Context mContext;
     private SQLiteDatabase mDatabase;
     private UUID mId;
@@ -161,6 +163,54 @@ public class WardrobeItem {
         }
     }
 
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mItem);
+        dest.writeString(mDate);
+        dest.writeString(mColors);
+        dest.writeString(mTextures);
+        dest.writeString(mOccasions);
+        dest.writeString(mSeasons);
+        dest.writeString(mFit);
+        dest.writeString(mLength);
+        dest.writeString(mPrice + "");
+        dest.writeString(mBrand);
+    }
+
+    private WardrobeItem(Parcel in) {
+        mItem = in.readString();
+        mDate = in.readString();
+        mColors = in.readString();
+        mTextures = in.readString();
+        mOccasions = in.readString();
+        mSeasons = in.readString();
+        mFit = in.readString();
+        mLength = in.readString();
+        mPrice = Double.parseDouble(in.readString());
+        mBrand = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Parcelable.Creator<WardrobeItem> CREATOR
+            = new Parcelable.Creator<WardrobeItem>() {
+
+        // This simply calls our new constructor (typically private) and
+        // passes along the unmarshalled `Parcel`, and then returns the new object!
+        @Override
+        public WardrobeItem createFromParcel(Parcel in) {
+            return new WardrobeItem(in);
+        }
+
+        // We just need to copy this and change the type to match our class.
+        @Override
+        public WardrobeItem[] newArray(int size) {
+            return new WardrobeItem[size];
+        }
+    };
 
     public String getItem() {
         return mItem;
@@ -181,6 +231,10 @@ public class WardrobeItem {
     public Date getDate() throws ParseException {
         DateFormat formatter = DateFormat.getDateInstance();
         return formatter.parse(mDate);
+    }
+
+    public String getDateString() {
+        return mDate;
     }
 
     public void setDate(Date date) {

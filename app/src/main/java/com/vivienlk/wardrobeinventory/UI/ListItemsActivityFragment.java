@@ -1,10 +1,12 @@
 package com.vivienlk.wardrobeinventory.UI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.vivienlk.wardrobeinventory.R;
@@ -19,6 +21,8 @@ import java.util.List;
 public class ListItemsActivityFragment extends ListFragment {
     ListView mListView;
     WardrobeItemListAdapter mAdapter;
+    List<WardrobeItem> mWardrobeItems;
+
 
     public ListItemsActivityFragment() {
     }
@@ -33,18 +37,28 @@ public class ListItemsActivityFragment extends ListFragment {
     public void onResume() {
         super.onResume();
         mListView = getListView();
+        WardrobeItem item = new WardrobeItem(getContext());
+        mWardrobeItems = item.all();
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                WardrobeItem data = mWardrobeItems.get(position);
+                Intent i = new Intent(getContext(), SingleItemActivity.class);
+                i.putExtra("wardrobeItem", data);
+                startActivity(i);
+            }
+        });
         updateUI();
     }
 
     private void updateUI() {
-        WardrobeItem item = new WardrobeItem(getContext());
-        List<WardrobeItem> wardrobeItemList = item.all();
         if (mAdapter == null) {
-            mAdapter = new WardrobeItemListAdapter(getContext(), wardrobeItemList);
+            mAdapter = new WardrobeItemListAdapter(getContext(), mWardrobeItems);
             mListView.setAdapter(mAdapter);
         } else {
-            mAdapter.setItems(wardrobeItemList);
+            mAdapter.setItems(mWardrobeItems);
             mAdapter.notifyDataSetChanged();
         }
     }
+
 }
