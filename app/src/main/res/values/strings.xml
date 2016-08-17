@@ -3,8 +3,67 @@
     <string name="action_settings">Settings</string>
     <string name="add_a_new_item">Add a new item</string>
     <string name="view_all_items">View all items</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_add_item">AddItemActivity</string>
+    <string name="item">Item</string>
+    <string name="date_bought">Date Bought</string>
+    <string name="colors">Colors</string>
+    <string name="textures">Textures</string>
+    <string name="occasions">Occasions</string>
+    <string name="seasons">Which seasons would you wear this?</string>
+    <string name="fit">How does this item fit you?</string>
+    <string name="length">How long is this item?</string>
+    <string name="price">Price</string>
+    <string name="brand">Brand</string>
+    <string name="save">Save</string>
+
+    <string-array name="item_types_array">
+        <item>Blouse</item>
+        <item>Tee</item>
+        <item>Tunic</item>
+        <item>Sweater</item>
+        <item>Dress</item>
+        <item>Short</item>
+        <item>Pant</item>
+        <item>Legging</item>
+        <item>Romper</item>
+        <item>Jacket</item>
+        <item>Outerwear</item>
+        <item>Swimwear</item>
+        <item>Intimate</item>
+        <item>Sandal</item>
+        <item>Boot</item>
+        <item>Heel</item>
+        <item>Flat</item>
+        <item>Sneaker</item>
+        <item>Hat</item>
+        <item>Scarf</item>
+        <item>Jewelry</item>
+        <item>Bag</item>
+        <item>Belt</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="occasion_types_array">
+        <item>Casual</item>
+        <item>Business</item>
+        <item>Party</item>
+        <item>Formal</item>
+    </string-array>
+
+    <string-array name="seasons_array">
+        <item>Summer</item>
+        <item>Fall</item>
+        <item>Winter</item>
+        <item>Spring</item>
+    </string-array>
+
+    <string-array name="length_array">
+        <item>Extra Short</item>
+        <item>Short</item>
+        <item>Medium</item>
+        <item>Long</item>
+        <item>Extra Long</item>
+    </string-array>
+    <string name="title_activity_list_items">ListItemsActivity</string>
+    <string name="title_activity_single_item">SingleItemActivity</string>
 </resources>

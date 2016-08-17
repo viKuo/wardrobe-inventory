@@ -1,0 +1,281 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".UI.AddItemActivity"
+    >
+
+
+    <ImageView
+        android:layout_width="148dp"
+        android:layout_height="196dp"
+        android:id="@+id/photo"
+        android:layout_gravity="center_horizontal|top"
+        android:src="@drawable/photo_default"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
+
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/photo">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/item"
+                    android:id="@+id/itemTextView"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:width="0dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Dresses"
+                    android:layout_weight="1"
+                    android:id="@+id/itemInputTextView"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/date_bought"
+                    android:id="@+id/dateTextView"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:width="0dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="8/21/2016"
+                    android:layout_weight="1"
+                    android:id="@+id/dateInputTextView"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/colors"
+                    android:id="@+id/colorsTextView"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:width="0dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="blue, gold, yellow"
+                    android:layout_weight="1"
+                    android:id="@+id/colorsInputTextView"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/textures"
+                    android:id="@+id/texturesTextView"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:width="0dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="chiffon, lace, satin"
+                    android:layout_weight="1"
+                    android:id="@+id/texturesInputTextView"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/occasions"
+                    android:id="@+id/occasionTextView"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:width="0dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Formal"
+                    android:layout_weight="1"
+                    android:id="@+id/occasionsInputTextView"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/seasons"
+                    android:id="@+id/seasonsTextView"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:width="0dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Spring"
+                    android:layout_weight="1"
+                    android:id="@+id/seasonsInputTextView"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fit"
+                    android:id="@+id/fitTextView"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:width="0dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="5"
+                    android:layout_weight="1"
+                    android:id="@+id/fitInputTextView"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/length"
+                    android:id="@+id/lengthTextView"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:width="0dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Short"
+                    android:layout_weight="1"
+                    android:id="@+id/lengthInputTextView"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/price"
+                    android:id="@+id/priceTextView"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:width="0dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="120"
+                    android:layout_weight="1"
+                    android:id="@+id/priceInputTextView"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/brand"
+                    android:id="@+id/brandTextView"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:width="0dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="BCBG"
+                    android:layout_weight="1"
+                    android:id="@+id/brandInputTextView"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

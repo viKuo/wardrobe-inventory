@@ -1,13 +1,291 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".AddItemFragment">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context=".UI.AddItemActivity"
+    >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
+
+    <ImageView
+        android:layout_width="148dp"
+        android:layout_height="196dp"
+        android:id="@+id/photo"
+        android:layout_gravity="center_horizontal|top"
+        android:src="@drawable/photo_default"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
+
+
+    <ScrollView
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/scrollView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/photo">
 
-</FrameLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/item"
+                    android:id="@+id/itemTextView"
+                    android:layout_gravity="center"
+                    android:layout_weight="3"
+                    android:width="0dp"
+                    />
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/itemInput"
+                    tools:listitem="@layout/list_item_layout"
+                    android:spinnerMode="dropdown"
+                    android:layout_weight="7"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/date_bought"
+                    android:id="@+id/dateTextView"
+                    android:layout_gravity="center"
+                    android:layout_weight="3"
+                    android:width="0dp"/>
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="date"
+                    android:id="@+id/dateInput"
+                    android:layout_weight="7"
+                    android:width="0dp"
+                    android:singleLine="true"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/colors"
+                    android:id="@+id/colorsTextView"
+                    android:layout_gravity="center"
+                    android:layout_weight="3"
+                    android:width="0dp"/>
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/colorsInput"
+                    android:layout_weight="7"
+                    android:inputType="text"
+                    android:width="0dp"
+                    android:singleLine="true"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/textures"
+                    android:id="@+id/texturesTextView"
+                    android:layout_gravity="center"
+                    android:layout_weight="3"
+                    android:width="0dp"/>
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/texturesInput"
+                    android:inputType="text"
+                    android:layout_weight="7"
+                    android:width="0dp"
+                    android:singleLine="true"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/occasions"
+                    android:id="@+id/occasionTextView"
+                    android:layout_gravity="center"
+                    android:layout_weight="3"
+                    android:width="0dp"/>
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/occasionsInput"
+                    tools:listitem="@layout/list_item_layout"
+                    android:spinnerMode="dropdown"
+                    android:layout_weight="7"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/seasons"
+                    android:id="@+id/seasonsTextView"
+                    android:layout_gravity="center"
+                    android:layout_weight="5"
+                    android:width="0dp"/>
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/seasonsInput"
+                    tools:listitem="@layout/list_item_layout"
+                    android:spinnerMode="dropdown"
+                    android:layout_weight="7"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="10">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fit"
+                    android:id="@+id/fitTextView"
+                    android:layout_gravity="center"
+                    android:layout_weight="3"
+                    android:width="0dp"/>
+
+                <SeekBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fitInput"
+                    android:progress="3"
+                    android:max="5"
+                    android:indeterminate="false"
+                    android:layout_weight="7"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/length"
+                    android:id="@+id/lengthTextView"
+                    android:layout_gravity="center"
+                    android:layout_weight="3"
+                    android:width="0dp"/>
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lengthInput"
+                    tools:listitem="@layout/list_item_layout"
+                    android:spinnerMode="dropdown"
+                    android:layout_weight="7"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/price"
+                    android:id="@+id/priceTextView"
+                    android:layout_gravity="center"
+                    android:layout_weight="3"
+                    android:width="0dp"/>
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:ems="10"
+                    android:id="@+id/priceInput"
+                    android:layout_weight="7"
+                    android:width="0dp"
+                    android:singleLine="true"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/brand"
+                    android:id="@+id/brandTextView"
+                    android:layout_gravity="center"
+                    android:layout_weight="3"
+                    android:width="0dp"/>
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/brandInput"
+                    android:inputType="text"
+                    android:layout_weight="7"
+                    android:width="0dp"
+                    android:singleLine="true"/>
+
+            </LinearLayout>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/save"
+                android:id="@+id/saveButton"/>
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

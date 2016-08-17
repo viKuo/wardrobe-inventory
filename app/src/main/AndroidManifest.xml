@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.vivienlk.wardrobeinventory">
+          package="com.vivienlk.wardrobeinventory">
 
     <application
         android:allowBackup="true"
@@ -9,23 +9,41 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".UI.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddItemActivity"
+            android:name=".UI.AddItemActivity"
             android:label="@string/title_activity_add_item"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".UI.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vivienlk.wardrobeinventory.MainActivity" />
+                android:value=".UI.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".UI.ListItemsActivity"
+            android:label="@string/title_activity_list_items"
+            android:parentActivityName=".UI.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".UI.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".UI.SingleItemActivity"
+            android:label="@string/title_activity_single_item"
+            android:parentActivityName=".UI.ListItemsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vivienlk.wardrobeinventory.UI.ListItemsActivity"/>
         </activity>
     </application>
 
