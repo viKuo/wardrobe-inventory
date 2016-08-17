@@ -7,13 +7,17 @@
 
 
     <ImageView
-        android:layout_width="148dp"
-        android:layout_height="196dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/photoView"
         android:layout_gravity="center_horizontal|top"
         android:src="@drawable/photo_default"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true"
+        android:maxWidth="240dp"
+        android:maxHeight="180dp"
+        android:layout_margin="5dp"/>
 
 
     <ScrollView
@@ -25,7 +29,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_below="@id/photo">
+        android:layout_below="@id/photoView">
 
         <LinearLayout
             android:orientation="vertical"

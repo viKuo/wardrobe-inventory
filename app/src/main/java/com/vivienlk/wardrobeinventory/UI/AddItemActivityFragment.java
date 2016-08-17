@@ -1,6 +1,7 @@
 package com.vivienlk.wardrobeinventory.UI;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -16,6 +17,7 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.vivienlk.wardrobeinventory.PictureUtils;
 import com.vivienlk.wardrobeinventory.R;
 import com.vivienlk.wardrobeinventory.models.WardrobeItem;
 
@@ -44,7 +46,8 @@ public class AddItemActivityFragment extends Fragment {
     @BindView(R.id.priceInput) EditText mPrice;
 
     private static final int REQUEST_PHOTO = 2;
-    WardrobeItem mWardrobeItem;
+    private WardrobeItem mWardrobeItem;
+    private File mPhotoFile;
 
 
     public AddItemActivityFragment() {
@@ -103,9 +106,25 @@ public class AddItemActivityFragment extends Fragment {
     @OnClick(R.id.addPhotoButton)
     public void takePhoto() {
         mWardrobeItem = new WardrobeItem(getContext());
+        mPhotoFile = mWardrobeItem.getPhotoFile();
         Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        Uri uri = Uri.fromFile(mWardrobeItem.getPhotoFile());
+        Uri uri = Uri.fromFile(mPhotoFile);
         i.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         startActivityForResult(i, REQUEST_PHOTO);
+    }
+
+    private void updatePhotoView() {
+        if (mPhotoFile != null && mPhotoFile.exists()) {
+            Bitmap bitmap = PictureUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity());
+            mPhoto.setImageBitmap(bitmap);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_PHOTO) {
+            updatePhotoView();
+        }
     }
 }
