@@ -33,6 +33,13 @@
             android:layout_height="wrap_content"
             android:padding="8dp">
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add_photo"
+                android:id="@+id/addPhotoButton"
+                />
+
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -284,6 +291,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/save"
                 android:id="@+id/saveButton"/>
+
         </LinearLayout>
     </ScrollView>
 

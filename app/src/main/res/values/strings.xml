@@ -66,4 +66,5 @@
     </string-array>
     <string name="title_activity_list_items">ListItemsActivity</string>
     <string name="title_activity_single_item">SingleItemActivity</string>
+    <string name="add_photo">Add Photo</string>
 </resources>
