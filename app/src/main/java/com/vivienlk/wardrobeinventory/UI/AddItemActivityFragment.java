@@ -1,5 +1,6 @@
 package com.vivienlk.wardrobeinventory.UI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -70,5 +71,7 @@ public class AddItemActivityFragment extends Fragment {
                 mBrand.getText().toString());
         item.save();
         Toast.makeText(getContext(), "Saved!", Toast.LENGTH_LONG).show();
+        Intent i = new Intent(getActivity(), ListItemsActivity.class);
+        startActivity(i);
     }
 }

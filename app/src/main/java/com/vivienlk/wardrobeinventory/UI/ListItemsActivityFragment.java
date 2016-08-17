@@ -13,9 +13,6 @@ import com.vivienlk.wardrobeinventory.models.WardrobeItem;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 /**
  * A placeholder fragment containing a simple view.
  */

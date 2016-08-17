@@ -36,6 +36,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".UI.MainActivity"/>
         </activity>
+        <activity
+            android:name=".UI.SingleItemActivity"
+            android:label="@string/title_activity_single_item"
+            android:parentActivityName=".UI.ListItemsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vivienlk.wardrobeinventory.UI.ListItemsActivity"/>
+        </activity>
     </application>
 
 </manifest>
