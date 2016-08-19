@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.CursorWrapper;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Environment;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -14,6 +17,8 @@ import com.vivienlk.wardrobeinventory.database.DatabaseHelper;
 import com.vivienlk.wardrobeinventory.database.WardrobeDbSchema.WardrobeTable;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,6 +33,7 @@ import java.util.UUID;
 public class WardrobeItem implements Parcelable{
     private Context mContext;
     private SQLiteDatabase mDatabase;
+    private Uri mPhotoUri;
     private UUID mId;
     private String mItem;
     private String mDate;
@@ -70,6 +76,7 @@ public class WardrobeItem implements Parcelable{
     private ContentValues getContentValues() {
         ContentValues values = new ContentValues();
         values.put(WardrobeTable.Cols.UUID, mId.toString());
+        values.put(WardrobeTable.Cols.PHOTOURI, mPhotoUri.getPath());
         values.put(WardrobeTable.Cols.ITEM, mItem);
         values.put(WardrobeTable.Cols.DATE, mDate);
         values.put(WardrobeTable.Cols.COLORS, mColors);
@@ -140,7 +147,7 @@ public class WardrobeItem implements Parcelable{
     }
 
     private class WardrobeCursorWrapper extends CursorWrapper {
-        Context mContext;
+        private Context mContext;
         public WardrobeCursorWrapper(Cursor cursor, Context context) {
             super(cursor);
             mContext = context;
@@ -148,6 +155,7 @@ public class WardrobeItem implements Parcelable{
 
         public WardrobeItem getWardrobeItem() {
             UUID uuidString = UUID.fromString(getString(getColumnIndex(WardrobeTable.Cols.UUID)));
+            Uri uri = Uri.parse(getString(getColumnIndex(WardrobeTable.Cols.PHOTOURI)));
             String item  = getString(getColumnIndex(WardrobeTable.Cols.ITEM));
             String date = getString(getColumnIndex(WardrobeTable.Cols.DATE));
             String colors = getString(getColumnIndex(WardrobeTable.Cols.COLORS));
@@ -162,6 +170,7 @@ public class WardrobeItem implements Parcelable{
             WardrobeItem wardrobeItem = new WardrobeItem(mContext, uuidString, item,
                     date, colors, textures, occasions,
                     seasons, fit, length, price, brand);
+            wardrobeItem.setPhotoUri(uri);
             return wardrobeItem;
         }
     }
@@ -169,6 +178,7 @@ public class WardrobeItem implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(mItem);
+        dest.writeString(mPhotoUri.toString());
         dest.writeString(mDate);
         dest.writeString(mColors);
         dest.writeString(mTextures);
@@ -182,6 +192,7 @@ public class WardrobeItem implements Parcelable{
 
     private WardrobeItem(Parcel in) {
         mItem = in.readString();
+        mPhotoUri = Uri.parse(in.readString());
         mDate = in.readString();
         mColors = in.readString();
         mTextures = in.readString();
@@ -215,13 +226,32 @@ public class WardrobeItem implements Parcelable{
         }
     };
 
-    public File getPhotoFile() {
+    public File getEmptyPhotoFile() {
         File externalFilesDir = mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         if (externalFilesDir == null) {
             return null;
         }
 
         return new File(externalFilesDir, getPhotoFilename());
+    }
+
+    public boolean hasPhotoUri() {
+        if(mPhotoUri != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public Bitmap getPhoto() {
+        try {
+            File f = new File(mPhotoUri.getPath());
+            Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(f));
+            return bitmap;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private String getPhotoFilename() {
@@ -313,4 +343,14 @@ public class WardrobeItem implements Parcelable{
     public void setPrice(double price) {
         mPrice = price;
     }
+
+
+    public Uri getPhotoUri() {
+        return mPhotoUri;
+    }
+
+    public void setPhotoUri(Uri photoUri) {
+        mPhotoUri = photoUri;
+    }
+
 }

@@ -106,10 +106,10 @@ public class AddItemActivityFragment extends Fragment {
     @OnClick(R.id.addPhotoButton)
     public void takePhoto() {
         mWardrobeItem = new WardrobeItem(getContext());
-        mPhotoFile = mWardrobeItem.getPhotoFile();
+        mPhotoFile = mWardrobeItem.getEmptyPhotoFile();
         Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        Uri uri = Uri.fromFile(mPhotoFile);
-        i.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        mWardrobeItem.setPhotoUri(Uri.fromFile(mPhotoFile));
+        i.putExtra(MediaStore.EXTRA_OUTPUT, mWardrobeItem.getPhotoUri());
         startActivityForResult(i, REQUEST_PHOTO);
     }
 
