@@ -67,4 +67,8 @@
     <string name="title_activity_list_items">ListItemsActivity</string>
     <string name="title_activity_single_item">SingleItemActivity</string>
     <string name="add_photo">Add Photo</string>
+    <string name="title_activity_filter_items">FilterItems</string>
+    <string name="filter_by_item">Filter by Item</string>
+    <string name="filter_by_color">Filter by color</string>
+    <string name="filter_by_season">Filter by Season</string>
 </resources>
