@@ -1,5 +1,6 @@
 package com.vivienlk.wardrobeinventory.UI;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import com.vivienlk.wardrobeinventory.models.WardrobeItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -21,6 +23,11 @@ public class FilterItemsFragment extends Fragment {
     @BindView(R.id.itemFilterSpinner) Spinner mItemSpinner;
     @BindView(R.id.colorFilterSpinner) Spinner mColorSpinner;
     @BindView(R.id.seasonFilterSpinner) Spinner mSeasonSpinner;
+
+    public static final String ITEM_FILTER = "itemFilter";
+    public static final String COLOR_FILTER = "colorFilter";
+    public static final String SEASON_FILTER = "seasonFilter";
+    public static final String FILTER_BOOLEAN = "filterBoolean";
 
     public FilterItemsFragment() {
     }
@@ -43,5 +50,14 @@ public class FilterItemsFragment extends Fragment {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 array_resource, android.R.layout.simple_spinner_dropdown_item);
         return adapter;
+    }
+
+    @OnClick(R.id.filterButton) void filterList() {
+        Intent i = new Intent(getContext(), ListItemsActivity.class);
+        i.putExtra(FILTER_BOOLEAN, true);
+        i.putExtra(ITEM_FILTER, mItemSpinner.getSelectedItem().toString());
+        i.putExtra(COLOR_FILTER, mColorSpinner.getSelectedItem().toString());
+        i.putExtra(SEASON_FILTER, mSeasonSpinner.getSelectedItem().toString());
+        startActivity(i);
     }
 }

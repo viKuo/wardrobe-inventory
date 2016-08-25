@@ -64,8 +64,7 @@ public class AddItemActivityFragment extends Fragment {
         mOccasions.setAdapter(createAdapter(R.array.occasion_types_array));
         mSeasons.setAdapter(createAdapter(R.array.seasons_array));
         mLength.setAdapter(createAdapter(R.array.length_array));
-
-
+        
         return view;
     }
 
