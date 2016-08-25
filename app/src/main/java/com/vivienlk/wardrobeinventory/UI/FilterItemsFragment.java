@@ -56,7 +56,8 @@ public class FilterItemsFragment extends Fragment {
         Intent i = new Intent(getContext(), ListItemsActivity.class);
         i.putExtra(FILTER_BOOLEAN, true);
         i.putExtra(ITEM_FILTER, mItemSpinner.getSelectedItem().toString());
-        i.putExtra(COLOR_FILTER, mColorSpinner.getSelectedItem().toString());
+        String colorFilter = "%" + mColorSpinner.getSelectedItem().toString() + "%";
+        i.putExtra(COLOR_FILTER, colorFilter);
         i.putExtra(SEASON_FILTER, mSeasonSpinner.getSelectedItem().toString());
         startActivity(i);
     }

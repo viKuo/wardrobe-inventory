@@ -138,6 +138,21 @@ public class WardrobeItem implements Parcelable{
         return items;
     }
 
+    public List<WardrobeItem> filterGet(String[] filters) {
+        List<WardrobeItem> items = new ArrayList<>();
+        WardrobeCursorWrapper cursor = queryItem("item = ? AND colors LIKE ? AND seasons = ?", filters);
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                items.add(cursor.getWardrobeItem());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+        return items;
+    }
+
     private WardrobeCursorWrapper queryItem (String whereClause, String[] whereArgs) {
         Cursor cursor = mDatabase.query(
                 WardrobeTable.NAME,

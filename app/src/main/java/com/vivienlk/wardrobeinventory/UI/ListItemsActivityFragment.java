@@ -15,6 +15,7 @@ import com.vivienlk.wardrobeinventory.R;
 import com.vivienlk.wardrobeinventory.adapters.WardrobeItemListAdapter;
 import com.vivienlk.wardrobeinventory.models.WardrobeItem;
 
+import java.lang.reflect.Array;
 import java.util.List;
 
 /**
@@ -38,16 +39,17 @@ public class ListItemsActivityFragment extends ListFragment {
     @Override
     public void onResume() {
         super.onResume();
+        WardrobeItem item = new WardrobeItem(getContext());
         Intent i = getActivity().getIntent();
         if (i.getBooleanExtra(FilterItemsFragment.FILTER_BOOLEAN, false)) {
-            Toast.makeText(getContext(), "it worked?", Toast.LENGTH_LONG).show();
-            Log.d("itemFilter", i.getStringExtra(FilterItemsFragment.ITEM_FILTER));
-            Log.d("ColorFilter", i.getStringExtra(FilterItemsFragment.COLOR_FILTER));
-            Log.d("seasonFilter", i.getStringExtra(FilterItemsFragment.SEASON_FILTER));
+            String[] filters = {i.getStringExtra(FilterItemsFragment.ITEM_FILTER),
+                    i.getStringExtra(FilterItemsFragment.COLOR_FILTER),
+                    i.getStringExtra(FilterItemsFragment.SEASON_FILTER)};
+            mWardrobeItems = item.filterGet(filters);
+        } else {
+            mWardrobeItems = item.all();
         }
         mListView = getListView();
-        WardrobeItem item = new WardrobeItem(getContext());
-        mWardrobeItems = item.all();
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
