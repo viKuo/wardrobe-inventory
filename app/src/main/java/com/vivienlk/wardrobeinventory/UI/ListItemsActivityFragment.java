@@ -3,11 +3,13 @@ package com.vivienlk.wardrobeinventory.UI;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.vivienlk.wardrobeinventory.R;
 import com.vivienlk.wardrobeinventory.adapters.WardrobeItemListAdapter;
@@ -36,6 +38,13 @@ public class ListItemsActivityFragment extends ListFragment {
     @Override
     public void onResume() {
         super.onResume();
+        Intent i = getActivity().getIntent();
+        if (i.getBooleanExtra(FilterItemsFragment.FILTER_BOOLEAN, false)) {
+            Toast.makeText(getContext(), "it worked?", Toast.LENGTH_LONG).show();
+            Log.d("itemFilter", i.getStringExtra(FilterItemsFragment.ITEM_FILTER));
+            Log.d("ColorFilter", i.getStringExtra(FilterItemsFragment.COLOR_FILTER));
+            Log.d("seasonFilter", i.getStringExtra(FilterItemsFragment.SEASON_FILTER));
+        }
         mListView = getListView();
         WardrobeItem item = new WardrobeItem(getContext());
         mWardrobeItems = item.all();
