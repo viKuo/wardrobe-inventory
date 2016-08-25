@@ -71,8 +71,7 @@ public class AddItemActivityFragment extends Fragment {
 
     private ArrayAdapter<CharSequence> createAdapter(int array_resource) {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
-                array_resource, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                array_resource, android.R.layout.simple_spinner_dropdown_item);
         return adapter;
     }
 

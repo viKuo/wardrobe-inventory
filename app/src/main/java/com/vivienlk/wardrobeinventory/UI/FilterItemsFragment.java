@@ -34,15 +34,14 @@ public class FilterItemsFragment extends Fragment {
         WardrobeItem item = new WardrobeItem(getContext());
 
         mItemSpinner.setAdapter(createAdapter(R.array.item_types_array));
-        mColorSpinner.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, item.getAllColors()));
+        mColorSpinner.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, item.getAllColors()));
         mSeasonSpinner.setAdapter(createAdapter(R.array.seasons_array));
         return view;
     }
 
     private ArrayAdapter<CharSequence> createAdapter(int array_resource) {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
-                array_resource, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                array_resource, android.R.layout.simple_spinner_dropdown_item);
         return adapter;
     }
 }
