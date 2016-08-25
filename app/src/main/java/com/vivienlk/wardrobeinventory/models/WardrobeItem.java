@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import com.vivienlk.wardrobeinventory.database.DatabaseHelper;
 
@@ -24,8 +25,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -256,12 +260,14 @@ public class WardrobeItem implements Parcelable{
     }
 
     public List<String> getAllColors() {
-        List<String> colors = new ArrayList<>();
+        Set<String> colorsSet = new HashSet<>();
         List<WardrobeItem> items = all();
         for (WardrobeItem item : items) {
-            String[] itemColors = item.getColors().split(", ");
-            colors.addAll(Arrays.asList(itemColors));
+            List<String> itemColors = Arrays.asList(item.getColors().split(", "));
+            colorsSet.addAll(itemColors);
         }
+        List<String> colors = new ArrayList<>(colorsSet);
+        Collections.sort(colors);
         return colors;
     }
 
