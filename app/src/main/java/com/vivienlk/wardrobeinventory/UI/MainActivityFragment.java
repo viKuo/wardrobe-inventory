@@ -42,6 +42,11 @@ public class MainActivityFragment extends Fragment {
 
     }
 
+    @OnClick(R.id.filter_items_button) void filterItems() {
+        Intent i = new Intent(getActivity(), FilterItemsActivity.class);
+        startActivity(i);
+    }
+
     public interface onFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }
