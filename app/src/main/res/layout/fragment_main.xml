@@ -21,7 +21,17 @@
         android:layout_height="wrap_content"
         android:text="@string/view_all_items"
         android:id="@+id/view_all_items_button"
+        android:layout_marginTop="29dp"
         android:layout_below="@+id/add_new_item_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="22dp" />
+        android:layout_alignLeft="@+id/add_new_item_button"
+        android:layout_alignStart="@+id/add_new_item_button"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Filter Items"
+        android:id="@+id/filter_items_button"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/view_all_items_button"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>

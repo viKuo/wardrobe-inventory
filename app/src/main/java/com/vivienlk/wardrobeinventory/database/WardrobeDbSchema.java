@@ -9,6 +9,7 @@ public class WardrobeDbSchema {
 
         public static final class Cols {
             public static final String UUID = "uuid";
+            public static final String PHOTOURI = "uri";
             public static final String ITEM = "item";
             public static final String DATE = "date";
             public static final String COLORS = "colors";

@@ -3,16 +3,19 @@ package com.vivienlk.wardrobeinventory.UI;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.vivienlk.wardrobeinventory.R;
 import com.vivienlk.wardrobeinventory.adapters.WardrobeItemListAdapter;
 import com.vivienlk.wardrobeinventory.models.WardrobeItem;
 
+import java.lang.reflect.Array;
 import java.util.List;
 
 /**
@@ -36,9 +39,17 @@ public class ListItemsActivityFragment extends ListFragment {
     @Override
     public void onResume() {
         super.onResume();
-        mListView = getListView();
         WardrobeItem item = new WardrobeItem(getContext());
-        mWardrobeItems = item.all();
+        Intent i = getActivity().getIntent();
+        if (i.getBooleanExtra(FilterItemsFragment.FILTER_BOOLEAN, false)) {
+            String[] filters = {i.getStringExtra(FilterItemsFragment.ITEM_FILTER),
+                    i.getStringExtra(FilterItemsFragment.COLOR_FILTER),
+                    i.getStringExtra(FilterItemsFragment.SEASON_FILTER)};
+            mWardrobeItems = item.filterGet(filters);
+        } else {
+            mWardrobeItems = item.all();
+        }
+        mListView = getListView();
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

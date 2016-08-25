@@ -3,7 +3,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 xmlns:tools="http://schemas.android.com/tools"
-                android:padding="5dp">
+                android:padding="5dp"
+                android:gravity="top">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -13,8 +14,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:src="@drawable/photo_default"
-        android:maxHeight="100dp"
-        android:maxWidth="100dp"
+        android:maxHeight="99dp"
+        android:maxWidth="132dp"
         android:adjustViewBounds="true"/>
 
     <TextView

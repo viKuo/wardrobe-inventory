@@ -1,6 +1,8 @@
 package com.vivienlk.wardrobeinventory.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.vivienlk.wardrobeinventory.PictureUtils;
 import com.vivienlk.wardrobeinventory.R;
 import com.vivienlk.wardrobeinventory.models.WardrobeItem;
 
@@ -50,6 +53,11 @@ public class WardrobeItemListAdapter extends ArrayAdapter<WardrobeItem>{
             viewHolder = (ViewHolder) convertView.getTag();
         }
         // Populate the data into the template view using the data object
+
+        if (item.hasPhotoUri()) {
+            Bitmap bitmap = item.getPhoto();
+            viewHolder.mImageView.setImageBitmap(bitmap);
+        }
         viewHolder.mItemView.setText(item.getItem());
         viewHolder.mOccasionView.setText(item.getOccasions());
         viewHolder.mColorsView.setText(item.getColors());
