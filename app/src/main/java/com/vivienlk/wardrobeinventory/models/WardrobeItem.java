@@ -23,6 +23,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -254,6 +255,16 @@ public class WardrobeItem implements Parcelable{
         return null;
     }
 
+    public List<String> getAllColors() {
+        List<String> colors = new ArrayList<>();
+        List<WardrobeItem> items = all();
+        for (WardrobeItem item : items) {
+            String[] itemColors = item.getColors().split(", ");
+            colors.addAll(Arrays.asList(itemColors));
+        }
+        return colors;
+    }
+
     private String getPhotoFilename() {
         return "IMG_" + mId + ".jpg";
     }
@@ -343,7 +354,6 @@ public class WardrobeItem implements Parcelable{
     public void setPrice(double price) {
         mPrice = price;
     }
-
 
     public Uri getPhotoUri() {
         return mPhotoUri;
