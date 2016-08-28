@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.vivienlk.wardrobeinventory.PictureUtils;
 import com.vivienlk.wardrobeinventory.R;
+import com.vivienlk.wardrobeinventory.models.Wardrobe;
 import com.vivienlk.wardrobeinventory.models.WardrobeItem;
 
 import java.io.File;
@@ -95,7 +96,8 @@ public class AddItemActivityFragment extends Fragment {
             mWardrobeItem.setPrice(price);
             mWardrobeItem.setBrand(mBrand.getText().toString());
         }
-        mWardrobeItem.save();
+        Wardrobe wardrobe = Wardrobe.getInstance(getActivity());
+        wardrobe.save(mWardrobeItem);
         Toast.makeText(getContext(), "Saved!", Toast.LENGTH_LONG).show();
         Intent i = new Intent(getActivity(), ListItemsActivity.class);
         startActivity(i);
@@ -103,7 +105,7 @@ public class AddItemActivityFragment extends Fragment {
 
     @OnClick(R.id.addPhotoButton)
     public void takePhoto() {
-        mWardrobeItem = new WardrobeItem(getContext());
+        mWardrobeItem = new WardrobeItem(getActivity(), UUID.randomUUID());
         mPhotoFile = mWardrobeItem.getEmptyPhotoFile();
         Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         mWardrobeItem.setPhotoUri(Uri.fromFile(mPhotoFile));

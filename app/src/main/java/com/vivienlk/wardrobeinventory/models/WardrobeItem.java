@@ -68,6 +68,11 @@ public class WardrobeItem implements Parcelable{
         mBrand = brand;
     }
 
+    public WardrobeItem(Context context, UUID id) {
+        mContext = context;
+        mId = id;
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(mItem);
@@ -159,7 +164,6 @@ public class WardrobeItem implements Parcelable{
     public void setId(UUID id) {
         mId = id;
     }
-
 
     public String getItem() {
         return mItem;
