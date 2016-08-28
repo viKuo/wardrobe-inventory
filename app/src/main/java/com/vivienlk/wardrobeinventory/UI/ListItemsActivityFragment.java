@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.vivienlk.wardrobeinventory.R;
 import com.vivienlk.wardrobeinventory.adapters.WardrobeItemListAdapter;
+import com.vivienlk.wardrobeinventory.models.Wardrobe;
 import com.vivienlk.wardrobeinventory.models.WardrobeItem;
 
 import java.lang.reflect.Array;
@@ -39,15 +40,15 @@ public class ListItemsActivityFragment extends ListFragment {
     @Override
     public void onResume() {
         super.onResume();
-        WardrobeItem item = new WardrobeItem(getContext());
+        Wardrobe wardrobe = Wardrobe.getInstance(getActivity());
         Intent i = getActivity().getIntent();
         if (i.getBooleanExtra(FilterItemsFragment.FILTER_BOOLEAN, false)) {
             String[] filters = {i.getStringExtra(FilterItemsFragment.ITEM_FILTER),
                     i.getStringExtra(FilterItemsFragment.COLOR_FILTER),
                     i.getStringExtra(FilterItemsFragment.SEASON_FILTER)};
-            mWardrobeItems = item.filterGet(filters);
+            mWardrobeItems = wardrobe.filterGet(filters);
         } else {
-            mWardrobeItems = item.all();
+            mWardrobeItems = wardrobe.all();
         }
         mListView = getListView();
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

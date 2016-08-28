@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.vivienlk.wardrobeinventory.R;
+import com.vivienlk.wardrobeinventory.models.Wardrobe;
 import com.vivienlk.wardrobeinventory.models.WardrobeItem;
 
 import butterknife.BindView;
@@ -38,10 +39,12 @@ public class FilterItemsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_filter_items, container, false);
         ButterKnife.bind(this, view);
 
-        WardrobeItem item = new WardrobeItem(getContext());
+        Wardrobe wardrobe = Wardrobe.getInstance(getActivity());
 
         mItemSpinner.setAdapter(createAdapter(R.array.item_types_array));
-        mColorSpinner.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, item.getAllColors()));
+        mColorSpinner.setAdapter(new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                wardrobe.getAllColors()));
         mSeasonSpinner.setAdapter(createAdapter(R.array.seasons_array));
         return view;
     }

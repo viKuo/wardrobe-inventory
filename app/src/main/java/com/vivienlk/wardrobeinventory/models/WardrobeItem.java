@@ -37,7 +37,6 @@ import java.util.UUID;
  */
 public class WardrobeItem implements Parcelable{
     private Context mContext;
-    private SQLiteDatabase mDatabase;
     private Uri mPhotoUri;
     private UUID mId;
     private String mItem;
@@ -56,8 +55,6 @@ public class WardrobeItem implements Parcelable{
                         String occasions, String seasons, String fit,
                         String length, double price, String brand) {
         mContext = context.getApplicationContext();
-        mDatabase = new DatabaseHelper(mContext)
-                .getWritableDatabase();
         mId = id;
         mItem = item;
         mDate = date;
@@ -69,130 +66,6 @@ public class WardrobeItem implements Parcelable{
         mLength = length;
         mPrice = price;
         mBrand = brand;
-    }
-
-    public WardrobeItem (Context context) {
-        mContext = context.getApplicationContext();
-        mDatabase = new DatabaseHelper(mContext)
-                .getWritableDatabase();
-        mId = UUID.randomUUID();
-    }
-
-    private ContentValues getContentValues() {
-        ContentValues values = new ContentValues();
-        values.put(WardrobeTable.Cols.UUID, mId.toString());
-        values.put(WardrobeTable.Cols.PHOTOURI, mPhotoUri.getPath());
-        values.put(WardrobeTable.Cols.ITEM, mItem);
-        values.put(WardrobeTable.Cols.DATE, mDate);
-        values.put(WardrobeTable.Cols.COLORS, mColors);
-        values.put(WardrobeTable.Cols.TEXTURES, mTextures);
-        values.put(WardrobeTable.Cols.OCCASIONS, mOccasions);
-        values.put(WardrobeTable.Cols.SEASONS, mSeasons);
-        values.put(WardrobeTable.Cols.FIT, mFit);
-        values.put(WardrobeTable.Cols.LENGTH, mLength);
-        values.put(WardrobeTable.Cols.PRICE, mPrice);
-        values.put(WardrobeTable.Cols.BRAND, mBrand);
-        return values;
-    }
-
-    public void save() {
-        ContentValues values = getContentValues();
-        mDatabase.insert(WardrobeTable.NAME, null, values);
-    }
-
-    public void update() {
-        ContentValues values = getContentValues();
-        mDatabase.update(WardrobeTable.NAME,
-                values,
-                WardrobeTable.Cols.UUID + " = ?",
-                new String[] { mId.toString() });
-    }
-
-    public WardrobeItem getWardrobeItem(UUID id) {
-        WardrobeCursorWrapper cursor = queryItem(WardrobeTable.Cols.UUID + " = ?",
-                new String[] { id.toString() });
-
-        try {
-            if (cursor.getCount() == 0 ) {
-                return null;
-            }
-            cursor.moveToFirst();
-            return cursor.getWardrobeItem();
-        } finally {
-            cursor.close();
-        }
-    }
-
-    public List<WardrobeItem> all() {
-        List<WardrobeItem> items = new ArrayList<>();
-        WardrobeCursorWrapper cursor = queryItem(null, null);
-        try {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                items.add(cursor.getWardrobeItem());
-                cursor.moveToNext();
-            }
-        } finally {
-            cursor.close();
-        }
-        return items;
-    }
-
-    public List<WardrobeItem> filterGet(String[] filters) {
-        List<WardrobeItem> items = new ArrayList<>();
-        WardrobeCursorWrapper cursor = queryItem("item = ? AND colors LIKE ? AND seasons = ?", filters);
-        try {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                items.add(cursor.getWardrobeItem());
-                cursor.moveToNext();
-            }
-        } finally {
-            cursor.close();
-        }
-        return items;
-    }
-
-    private WardrobeCursorWrapper queryItem (String whereClause, String[] whereArgs) {
-        Cursor cursor = mDatabase.query(
-                WardrobeTable.NAME,
-                null, // null selects all columns
-                whereClause,
-                whereArgs,
-                null, //group by
-                null, //having
-                null //order by
-        );
-        return new WardrobeCursorWrapper(cursor, mContext);
-    }
-
-    private class WardrobeCursorWrapper extends CursorWrapper {
-        private Context mContext;
-        public WardrobeCursorWrapper(Cursor cursor, Context context) {
-            super(cursor);
-            mContext = context;
-        }
-
-        public WardrobeItem getWardrobeItem() {
-            UUID uuidString = UUID.fromString(getString(getColumnIndex(WardrobeTable.Cols.UUID)));
-            Uri uri = Uri.parse(getString(getColumnIndex(WardrobeTable.Cols.PHOTOURI)));
-            String item  = getString(getColumnIndex(WardrobeTable.Cols.ITEM));
-            String date = getString(getColumnIndex(WardrobeTable.Cols.DATE));
-            String colors = getString(getColumnIndex(WardrobeTable.Cols.COLORS));
-            String textures = getString(getColumnIndex(WardrobeTable.Cols.TEXTURES));
-            String occasions = getString(getColumnIndex(WardrobeTable.Cols.OCCASIONS));
-            String seasons = getString(getColumnIndex(WardrobeTable.Cols.SEASONS));
-            String fit = getString(getColumnIndex(WardrobeTable.Cols.FIT));
-            String length = getString(getColumnIndex(WardrobeTable.Cols.LENGTH));
-            double price  = Double.parseDouble(getString(getColumnIndex(WardrobeTable.Cols.PRICE)));
-            String brand = getString(getColumnIndex(WardrobeTable.Cols.BRAND));
-
-            WardrobeItem wardrobeItem = new WardrobeItem(mContext, uuidString, item,
-                    date, colors, textures, occasions,
-                    seasons, fit, length, price, brand);
-            wardrobeItem.setPhotoUri(uri);
-            return wardrobeItem;
-        }
     }
 
     @Override
@@ -274,21 +147,19 @@ public class WardrobeItem implements Parcelable{
         return null;
     }
 
-    public List<String> getAllColors() {
-        Set<String> colorsSet = new HashSet<>();
-        List<WardrobeItem> items = all();
-        for (WardrobeItem item : items) {
-            List<String> itemColors = Arrays.asList(item.getColors().split(", "));
-            colorsSet.addAll(itemColors);
-        }
-        List<String> colors = new ArrayList<>(colorsSet);
-        Collections.sort(colors);
-        return colors;
-    }
-
     private String getPhotoFilename() {
         return "IMG_" + mId + ".jpg";
     }
+
+
+    public UUID getId() {
+        return mId;
+    }
+
+    public void setId(UUID id) {
+        mId = id;
+    }
+
 
     public String getItem() {
         return mItem;
