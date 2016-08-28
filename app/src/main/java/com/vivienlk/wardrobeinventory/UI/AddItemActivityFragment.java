@@ -32,6 +32,8 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnFocusChange;
+import butterknife.OnItemClick;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -114,7 +116,8 @@ public class AddItemActivityFragment extends Fragment
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        mDate.setText(monthOfYear + "/" + dayOfMonth + "/" + year);
+        mDate.setText((monthOfYear+1) + "/" + dayOfMonth + "/" + year);
+        mColors.requestFocus();
     }
 
     @OnClick(R.id.addPhotoButton)
@@ -127,8 +130,8 @@ public class AddItemActivityFragment extends Fragment
         startActivityForResult(i, REQUEST_PHOTO);
     }
 
-    @OnClick(R.id.dateInputTextView)
-    public void showDatePickerDialog(View v) {
+    @OnClick(R.id.dateInput)
+    public void showDatePickerDialog() {
         DialogFragment dateFragment = new DatePickerFragment();
         dateFragment.setTargetFragment(this,REQUEST_DATE);
         dateFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
