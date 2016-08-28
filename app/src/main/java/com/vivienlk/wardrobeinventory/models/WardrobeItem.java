@@ -76,7 +76,7 @@ public class WardrobeItem implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(mItem);
-        dest.writeString(mPhotoUri.toString());
+        dest.writeString(getPhotoUriPath());
         dest.writeString(mDate);
         dest.writeString(mColors);
         dest.writeString(mTextures);
@@ -90,7 +90,7 @@ public class WardrobeItem implements Parcelable{
 
     private WardrobeItem(Parcel in) {
         mItem = in.readString();
-        mPhotoUri = Uri.parse(in.readString());
+        String photoUriString = in.readString();
         mDate = in.readString();
         mColors = in.readString();
         mTextures = in.readString();
@@ -100,6 +100,10 @@ public class WardrobeItem implements Parcelable{
         mLength = in.readString();
         mPrice = Double.parseDouble(in.readString());
         mBrand = in.readString();
+
+        if (photoUriString != null) {
+            mPhotoUri = Uri.parse(photoUriString);
+        }
     }
 
     @Override
@@ -252,6 +256,14 @@ public class WardrobeItem implements Parcelable{
 
     public Uri getPhotoUri() {
         return mPhotoUri;
+    }
+
+    public String getPhotoUriPath() {
+        if (mPhotoUri == null) {
+            return null;
+        } else {
+            return mPhotoUri.getPath();
+        }
     }
 
     public void setPhotoUri(Uri photoUri) {

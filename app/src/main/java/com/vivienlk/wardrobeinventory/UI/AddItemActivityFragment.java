@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,14 +84,14 @@ public class AddItemActivityFragment extends Fragment
 
     @OnClick(R.id.saveButton)
     public void saveItem() {
-        double price = ((mPrice.getText() == null) ? null : Double.parseDouble(mPrice.getText().toString()));
-        String date = ((mDate.getText() == null) ? null : mDate.getText().toString());
-        String colors = ((mColors.getText() == null) ? null : mColors.getText().toString());
-        String textures = ((mTextures.getText() == null) ? null : mTextures.getText().toString());
-        String brand = ((mBrand.getText() == null) ? null : mBrand.getText().toString());
+        double price = (isEmpty(mPrice) ? 0 : Double.parseDouble(mPrice.getText().toString()));
+        String date = ((isEmpty(mDate)) ? null : mDate.getText().toString());
+        String colors = ((isEmpty(mColors)) ? null : mColors.getText().toString());
+        String textures = ((isEmpty(mTextures)) ? null : mTextures.getText().toString());
+        String brand = ((isEmpty(mBrand)) ? null : mBrand.getText().toString());
 
         if (mWardrobeItem == null) {
-            WardrobeItem wardrobeItem = new WardrobeItem(getContext(), UUID.randomUUID(),
+            mWardrobeItem = new WardrobeItem(getContext(), UUID.randomUUID(),
                     mItem.getSelectedItem().toString(), date, colors,
                    textures, mOccasions.getSelectedItem().toString(), mSeasons.getSelectedItem().toString(),
                     mFit.getProgress() + "", mLength.getSelectedItem().toString(), price,
@@ -150,5 +151,9 @@ public class AddItemActivityFragment extends Fragment
         if (requestCode == REQUEST_PHOTO) {
             updatePhotoView();
         }
+    }
+
+    private boolean isEmpty(EditText editText) {
+        return editText.getText().toString().trim().length() == 0;
     }
 }

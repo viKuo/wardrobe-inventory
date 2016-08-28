@@ -62,7 +62,6 @@ public class Wardrobe {
 
         public WardrobeItem getWardrobeItem() {
             UUID uuidString = UUID.fromString(getString(getColumnIndex(WardrobeDbSchema.WardrobeTable.Cols.UUID)));
-            Uri uri = Uri.parse(getString(getColumnIndex(WardrobeDbSchema.WardrobeTable.Cols.PHOTOURI)));
             String item  = getString(getColumnIndex(WardrobeDbSchema.WardrobeTable.Cols.ITEM));
             String date = getString(getColumnIndex(WardrobeDbSchema.WardrobeTable.Cols.DATE));
             String colors = getString(getColumnIndex(WardrobeDbSchema.WardrobeTable.Cols.COLORS));
@@ -73,11 +72,21 @@ public class Wardrobe {
             String length = getString(getColumnIndex(WardrobeDbSchema.WardrobeTable.Cols.LENGTH));
             double price  = Double.parseDouble(getString(getColumnIndex(WardrobeDbSchema.WardrobeTable.Cols.PRICE)));
             String brand = getString(getColumnIndex(WardrobeDbSchema.WardrobeTable.Cols.BRAND));
+            String uriString = getString(getColumnIndex(WardrobeDbSchema.WardrobeTable.Cols.PHOTOURI));
+            Uri uri;
+            if (uriString == null) {
+                uri = null;
+            } else {
+                uri = Uri.parse(uriString);
+            }
 
             WardrobeItem wardrobeItem = new WardrobeItem(mContext, uuidString, item,
                     date, colors, textures, occasions,
                     seasons, fit, length, price, brand);
-            wardrobeItem.setPhotoUri(uri);
+
+            if (uri != null) {
+                wardrobeItem.setPhotoUri(uri);
+            }
             return wardrobeItem;
         }
     }
@@ -99,7 +108,7 @@ public class Wardrobe {
     private ContentValues getContentValues(WardrobeItem item) {
         ContentValues values = new ContentValues();
         values.put(WardrobeDbSchema.WardrobeTable.Cols.UUID, item.getId().toString());
-        values.put(WardrobeDbSchema.WardrobeTable.Cols.PHOTOURI, item.getPhotoUri().getPath());
+        values.put(WardrobeDbSchema.WardrobeTable.Cols.PHOTOURI, item.getPhotoUriPath());
         values.put(WardrobeDbSchema.WardrobeTable.Cols.ITEM, item.getItem());
         values.put(WardrobeDbSchema.WardrobeTable.Cols.DATE, item.getDateString());
         values.put(WardrobeDbSchema.WardrobeTable.Cols.COLORS, item.getColors());
