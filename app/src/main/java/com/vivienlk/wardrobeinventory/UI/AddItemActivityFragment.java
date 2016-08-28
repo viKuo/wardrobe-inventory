@@ -1,16 +1,19 @@
 package com.vivienlk.wardrobeinventory.UI;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -33,7 +36,8 @@ import butterknife.OnClick;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class AddItemActivityFragment extends Fragment {
+public class AddItemActivityFragment extends Fragment
+        implements DatePickerDialog.OnDateSetListener {
     @BindView(R.id.photoView) ImageView mPhoto;
     @BindView(R.id.itemInput) Spinner mItem;
     @BindView(R.id.dateInput) EditText mDate;
@@ -46,10 +50,10 @@ public class AddItemActivityFragment extends Fragment {
     @BindView(R.id.brandInput) EditText mBrand;
     @BindView(R.id.priceInput) EditText mPrice;
 
+    private static final int REQUEST_DATE = 1;
     private static final int REQUEST_PHOTO = 2;
     private WardrobeItem mWardrobeItem;
     private File mPhotoFile;
-
 
     public AddItemActivityFragment() {
     }
@@ -77,16 +81,21 @@ public class AddItemActivityFragment extends Fragment {
 
     @OnClick(R.id.saveButton)
     public void saveItem() {
-        double price = Double.parseDouble(mPrice.getText().toString());
+        double price = ((mPrice.getText() == null) ? null : Double.parseDouble(mPrice.getText().toString()));
+        String date = ((mDate.getText() == null) ? null : mDate.getText().toString());
+        String colors = ((mColors.getText() == null) ? null : mColors.getText().toString());
+        String textures = ((mTextures.getText() == null) ? null : mTextures.getText().toString());
+        String brand = ((mBrand.getText() == null) ? null : mBrand.getText().toString());
+
         if (mWardrobeItem == null) {
-            WardrobeItem item = new WardrobeItem(getContext(), UUID.randomUUID(),
-                    mItem.getSelectedItem().toString(), mDate.getText().toString(), mColors.getText().toString(),
-                    mTextures.getText().toString(), mOccasions.getSelectedItem().toString(), mSeasons.getSelectedItem().toString(),
+            WardrobeItem wardrobeItem = new WardrobeItem(getContext(), UUID.randomUUID(),
+                    mItem.getSelectedItem().toString(), date, colors,
+                   textures, mOccasions.getSelectedItem().toString(), mSeasons.getSelectedItem().toString(),
                     mFit.getProgress() + "", mLength.getSelectedItem().toString(), price,
-                    mBrand.getText().toString());
+                   brand);
         } else {
             mWardrobeItem.setItem(mItem.getSelectedItem().toString());
-            mWardrobeItem.setDate(new Date());
+            mWardrobeItem.setDate(date);
             mWardrobeItem.setColors(mColors.getText().toString());
             mWardrobeItem.setTextures(mTextures.getText().toString());
             mWardrobeItem.setOccasions(mOccasions.getSelectedItem().toString());
@@ -103,6 +112,11 @@ public class AddItemActivityFragment extends Fragment {
         startActivity(i);
     }
 
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        mDate.setText(monthOfYear + "/" + dayOfMonth + "/" + year);
+    }
+
     @OnClick(R.id.addPhotoButton)
     public void takePhoto() {
         mWardrobeItem = new WardrobeItem(getActivity(), UUID.randomUUID());
@@ -111,6 +125,13 @@ public class AddItemActivityFragment extends Fragment {
         mWardrobeItem.setPhotoUri(Uri.fromFile(mPhotoFile));
         i.putExtra(MediaStore.EXTRA_OUTPUT, mWardrobeItem.getPhotoUri());
         startActivityForResult(i, REQUEST_PHOTO);
+    }
+
+    @OnClick(R.id.dateInputTextView)
+    public void showDatePickerDialog(View v) {
+        DialogFragment dateFragment = new DatePickerFragment();
+        dateFragment.setTargetFragment(this,REQUEST_DATE);
+        dateFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
     }
 
     private void updatePhotoView() {

@@ -190,9 +190,8 @@ public class WardrobeItem implements Parcelable{
         return mDate;
     }
 
-    public void setDate(Date date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        mDate = sdf.format(date);
+    public void setDate(String date) {
+        mDate = date;
     }
 
     public String getColors() {
