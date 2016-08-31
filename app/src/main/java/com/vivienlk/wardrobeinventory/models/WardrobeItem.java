@@ -199,7 +199,11 @@ public class WardrobeItem implements Parcelable{
     }
 
     public String getColors() {
-        return mColors;
+        if (mColors == null) {
+            return "";
+        } else {
+            return mColors;
+        }
     }
 
     public void setColors(String colors) {
