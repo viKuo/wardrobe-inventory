@@ -48,7 +48,6 @@ public class AddItemActivityFragment extends Fragment
     @BindView(R.id.texturesInput) EditText mTextures;
     @BindView(R.id.occasionsInput) Spinner mOccasions;
     @BindView(R.id.seasonsInput) Spinner mSeasons;
-    @BindView(R.id.fitInput) SeekBar mFit;
     @BindView(R.id.lengthInput) Spinner mLength;
     @BindView(R.id.brandInput) EditText mBrand;
     @BindView(R.id.priceInput) EditText mPrice;
@@ -94,7 +93,7 @@ public class AddItemActivityFragment extends Fragment
             mWardrobeItem = new WardrobeItem(getContext(), UUID.randomUUID(),
                     mItem.getSelectedItem().toString(), date, colors,
                    textures, mOccasions.getSelectedItem().toString(), mSeasons.getSelectedItem().toString(),
-                    mFit.getProgress() + "", mLength.getSelectedItem().toString(), price,
+                    mLength.getSelectedItem().toString(), price,
                    brand);
         } else {
             mWardrobeItem.setItem(mItem.getSelectedItem().toString());
@@ -103,7 +102,6 @@ public class AddItemActivityFragment extends Fragment
             mWardrobeItem.setTextures(mTextures.getText().toString());
             mWardrobeItem.setOccasions(mOccasions.getSelectedItem().toString());
             mWardrobeItem.setSeasons(mSeasons.getSelectedItem().toString());
-            mWardrobeItem.setFit(mFit.getProgress() + "");
             mWardrobeItem.setLength(mLength.getSelectedItem().toString());
             mWardrobeItem.setPrice(price);
             mWardrobeItem.setBrand(mBrand.getText().toString());
@@ -131,12 +129,15 @@ public class AddItemActivityFragment extends Fragment
         startActivityForResult(i, REQUEST_PHOTO);
     }
 
-    @OnClick(R.id.dateInput)
-    public void showDatePickerDialog() {
-        DialogFragment dateFragment = new DatePickerFragment();
-        dateFragment.setTargetFragment(this,REQUEST_DATE);
-        dateFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
+    @OnFocusChange(R.id.dateInput)
+    public void showDatePickerDialog(boolean hasFocus) {
+        if (hasFocus) {
+            DialogFragment dateFragment = new DatePickerFragment();
+            dateFragment.setTargetFragment(this, REQUEST_DATE);
+            dateFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
+        }
     }
+
 
     private void updatePhotoView() {
         if (mPhotoFile != null && mPhotoFile.exists()) {
