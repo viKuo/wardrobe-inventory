@@ -184,7 +184,7 @@
                     android:layout_weight="5"
                     android:width="0dp"/>
 
-                <Spinner
+                <com.vivienlk.wardrobeinventory.MultiSpinner
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/seasonsInput"
