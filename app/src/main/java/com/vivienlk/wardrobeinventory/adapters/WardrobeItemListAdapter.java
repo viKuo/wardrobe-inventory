@@ -3,6 +3,7 @@ package com.vivienlk.wardrobeinventory.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,8 @@ public class WardrobeItemListAdapter extends ArrayAdapter<WardrobeItem>{
         if (item.hasPhotoUri()) {
             Bitmap bitmap = item.getPhoto();
             viewHolder.mImageView.setImageBitmap(bitmap);
+        } else {
+            viewHolder.mImageView.setImageDrawable(ResourcesCompat.getDrawable(getContext().getResources(), R.drawable.photo_default, null));
         }
         viewHolder.mItemView.setText(item.getItem());
         viewHolder.mOccasionView.setText(item.getOccasions());

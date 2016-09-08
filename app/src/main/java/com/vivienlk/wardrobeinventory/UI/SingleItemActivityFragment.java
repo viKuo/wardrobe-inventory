@@ -28,7 +28,6 @@ public class SingleItemActivityFragment extends Fragment {
     @BindView(R.id.texturesInputTextView) TextView mTexturesView;
     @BindView(R.id.occasionsInputTextView) TextView mOccasionsView;
     @BindView(R.id.seasonsInputTextView) TextView mSeasonsView;
-    @BindView(R.id.fitInputTextView) TextView mFitView;
     @BindView(R.id.lengthInputTextView) TextView mLengthView;
     @BindView(R.id.brandInputTextView) TextView mBrandView;
     @BindView(R.id.priceInputTextView) TextView mPriceView;
@@ -61,7 +60,6 @@ public class SingleItemActivityFragment extends Fragment {
         mTexturesView.setText(mItem.getTextures());
         mOccasionsView.setText(mItem.getOccasions());
         mSeasonsView.setText(mItem.getSeasons());
-        mFitView.setText(mItem.getFit());
         mLengthView.setText(mItem.getLength());
         mBrandView.setText(mItem.getBrand());
         mPriceView.setText(mItem.getPrice() + "");

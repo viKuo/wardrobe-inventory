@@ -82,7 +82,7 @@ public class Wardrobe {
 
             WardrobeItem wardrobeItem = new WardrobeItem(mContext, uuidString, item,
                     date, colors, textures, occasions,
-                    seasons, fit, length, price, brand);
+                    seasons, length, price, brand);
 
             if (uri != null) {
                 wardrobeItem.setPhotoUri(uri);
@@ -115,7 +115,6 @@ public class Wardrobe {
         values.put(WardrobeDbSchema.WardrobeTable.Cols.TEXTURES, item.getTextures());
         values.put(WardrobeDbSchema.WardrobeTable.Cols.OCCASIONS, item.getOccasions());
         values.put(WardrobeDbSchema.WardrobeTable.Cols.SEASONS, item.getSeasons());
-        values.put(WardrobeDbSchema.WardrobeTable.Cols.FIT, item.getFit());
         values.put(WardrobeDbSchema.WardrobeTable.Cols.LENGTH, item.getLength());
         values.put(WardrobeDbSchema.WardrobeTable.Cols.PRICE, item.getPrice());
         values.put(WardrobeDbSchema.WardrobeTable.Cols.BRAND, item.getBrand());

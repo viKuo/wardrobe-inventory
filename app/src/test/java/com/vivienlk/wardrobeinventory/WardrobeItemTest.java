@@ -25,7 +25,7 @@ public class WardrobeItemTest {
     @Test
     public void canInstantiateWardrobeItem() {
         WardrobeItem item = new WardrobeItem(mContext, UUID.randomUUID(), "Tee", "8/12/2016",
-                "Blue, Green", "Cotton", "Casual", "Fall", "5", "short", 21, "Forever21");
+                "Blue, Green", "Cotton", "Casual", "Fall", "short", 21, "Forever21");
         assertThat(item, instanceOf(WardrobeItem.class));
     }
 

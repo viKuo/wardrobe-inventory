@@ -45,14 +45,13 @@ public class WardrobeItem implements Parcelable{
     private String mTextures;
     private String mOccasions;
     private String mSeasons;
-    private String mFit;
     private String mLength;
     private double mPrice;
     private String mBrand;
 
     public WardrobeItem(Context context, UUID id, String item,
                         String date, String colors, String textures,
-                        String occasions, String seasons, String fit,
+                        String occasions, String seasons,
                         String length, double price, String brand) {
         mContext = context.getApplicationContext();
         mId = id;
@@ -62,7 +61,6 @@ public class WardrobeItem implements Parcelable{
         mTextures = textures;
         mOccasions = occasions;
         mSeasons = seasons;
-        mFit = fit;
         mLength = length;
         mPrice = price;
         mBrand = brand;
@@ -82,7 +80,6 @@ public class WardrobeItem implements Parcelable{
         dest.writeString(mTextures);
         dest.writeString(mOccasions);
         dest.writeString(mSeasons);
-        dest.writeString(mFit);
         dest.writeString(mLength);
         dest.writeString(mPrice + "");
         dest.writeString(mBrand);
@@ -96,7 +93,6 @@ public class WardrobeItem implements Parcelable{
         mTextures = in.readString();
         mOccasions = in.readString();
         mSeasons = in.readString();
-        mFit = in.readString();
         mLength = in.readString();
         mPrice = Double.parseDouble(in.readString());
         mBrand = in.readString();
@@ -232,14 +228,6 @@ public class WardrobeItem implements Parcelable{
 
     public void setSeasons(String seasons) {
         mSeasons = seasons;
-    }
-
-    public String getFit() {
-        return mFit;
-    }
-
-    public void setFit(String fit) {
-        mFit = fit;
     }
 
     public String getLength() {
