@@ -1,4 +1,5 @@
 package com.vivienlk.wardrobeinventory;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
@@ -97,7 +98,7 @@ public class MultiSpinner extends Spinner implements OnMultiChoiceClickListener,
         // all selected by default
         selected = new boolean[items.size()];
         for (int i = 0; i < selected.length; i++)
-            selected[i] = true;
+            selected[i] = false;
 
         // all text on the spinner
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
@@ -107,5 +108,15 @@ public class MultiSpinner extends Spinner implements OnMultiChoiceClickListener,
 
     public interface MultiSpinnerListener {
         public void onItemsSelected(boolean[] selected);
+    }
+
+    public List<String> getSelectedItems() {
+        List<String> selectedItems = new ArrayList<>();
+        for (int i = 0; i < this.selected.length; i++) {
+            if (selected[i]) {
+                selectedItems.add(items.get(i));
+            }
+        }
+        return selectedItems;
     }
 }
