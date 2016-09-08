@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vivienlk.wardrobeinventory.R;
@@ -20,14 +21,16 @@ import com.vivienlk.wardrobeinventory.models.WardrobeItem;
 import java.lang.reflect.Array;
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * A placeholder fragment containing a simple view.
  */
 public class ListItemsActivityFragment extends ListFragment {
+    //@BindView(R.id.emptyListTextView) TextView mEmptyTextView;
     ListView mListView;
     WardrobeItemListAdapter mAdapter;
     List<WardrobeItem> mWardrobeItems;
-
 
     public ListItemsActivityFragment() {
     }
@@ -43,15 +46,19 @@ public class ListItemsActivityFragment extends ListFragment {
         super.onResume();
         Wardrobe wardrobe = Wardrobe.getInstance(getActivity());
         Intent i = getActivity().getIntent();
+        mListView = getListView();
         if (i.getBooleanExtra(FilterItemsFragment.FILTER_BOOLEAN, false)) {
+            ((TextView)mListView.getEmptyView()).setText(getText(R.string.no_match_filter));
+            //mEmptyTextView.setText(R.string.no_match_filter);
             String[] filters = {i.getStringExtra(FilterItemsFragment.ITEM_FILTER),
                     i.getStringExtra(FilterItemsFragment.COLOR_FILTER),
-                    i.getStringExtra(FilterItemsFragment.SEASON_FILTER)};
+                    i.getStringExtra(FilterItemsFragment.SEASON_FILTER),
+                    i.getStringExtra(FilterItemsFragment.OCCASION_FILTER)};
             mWardrobeItems = wardrobe.filterGet(filters);
         } else {
+            ((TextView)mListView.getEmptyView()).setText(getText(R.string.no_wardrobe_items));
             mWardrobeItems = wardrobe.all();
         }
-        mListView = getListView();
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
