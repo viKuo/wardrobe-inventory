@@ -55,12 +55,27 @@
         android:layout_below="@id/seasonFilter"
         android:layout_alignParentLeft="true"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/filter_by_occasion"
+        android:id="@+id/occasionFilter"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="300dp"/>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/occasionFilterSpinner"
+        android:layout_below="@id/occasionFilter"
+        android:layout_alignParentLeft="true"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/filter"
         android:id="@+id/filterButton"
-        android:layout_below="@+id/seasonFilterSpinner"
+        android:layout_below="@+id/occasionFilterSpinner"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"/>
 

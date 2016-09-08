@@ -6,10 +6,13 @@ import android.database.Cursor;
 import android.database.CursorWrapper;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.text.TextUtils;
+import android.util.Log;
 
 import com.vivienlk.wardrobeinventory.database.DatabaseHelper;
 import com.vivienlk.wardrobeinventory.database.WardrobeDbSchema;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -153,7 +156,15 @@ public class Wardrobe {
 
     public List<WardrobeItem> filterGet(String[] filters) {
         List<WardrobeItem> items = new ArrayList<>();
-        WardrobeCursorWrapper cursor = queryItem("item = ? AND colors LIKE ? AND seasons = ?", filters);
+        String[] queryArgs = queryArgs(filters);
+        String[] filterArgs;
+        if (queryArgs[0].equals("")) {
+            queryArgs[0] = null;
+            filterArgs = null;
+        } else {
+           filterArgs = queryArgs[1].split(", ");
+        }
+        WardrobeCursorWrapper cursor = queryItem(queryArgs[0], filterArgs);
         try {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
@@ -166,9 +177,26 @@ public class Wardrobe {
         return items;
     }
 
+    private String[] queryArgs(String[] filters) {
+        String[] possibleWhereArgs = {"item = ?", "colors LIKE ?", "seasons LIKE ?", "occasions = ?"};
+        List<String> whereArgs = new ArrayList<String>();
+        List<String> filterArgs = new ArrayList<String>();
+        Log.d("filters", TextUtils.join(", ", filters));
+        for (int i = 0; i < possibleWhereArgs.length; i++) {
+            if (!filters[i].equals("") && !filters[i].equals("%%")) {
+                whereArgs.add(possibleWhereArgs[i]);
+                filterArgs.add(filters[i]);
+            }
+        }
+        String[] queryArgs = {TextUtils.join(" AND ", whereArgs), TextUtils.join(",", filterArgs)};
+        return queryArgs;
+    }
+
+
     public List<String> getAllColors() {
         Set<String> colorsSet = new HashSet<>();
         List<WardrobeItem> items = all();
+        colorsSet.add("");
         for (WardrobeItem item : items) {
             List<String> itemColors = Arrays.asList(item.getColors().split(", "));
             colorsSet.addAll(itemColors);
