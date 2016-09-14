@@ -49,7 +49,6 @@ public class ListItemsActivityFragment extends ListFragment {
         mListView = getListView();
         if (i.getBooleanExtra(FilterItemsFragment.FILTER_BOOLEAN, false)) {
             ((TextView)mListView.getEmptyView()).setText(getText(R.string.no_match_filter));
-            //mEmptyTextView.setText(R.string.no_match_filter);
             String[] filters = {i.getStringExtra(FilterItemsFragment.ITEM_FILTER),
                     i.getStringExtra(FilterItemsFragment.COLOR_FILTER),
                     i.getStringExtra(FilterItemsFragment.SEASON_FILTER),

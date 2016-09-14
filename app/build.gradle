@@ -10,7 +10,7 @@ android {
         applicationId "com.vivienlk.wardrobeinventory"
         minSdkVersion 22
         targetSdkVersion 23
-        versionCode 2
+        versionCode 3
         versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

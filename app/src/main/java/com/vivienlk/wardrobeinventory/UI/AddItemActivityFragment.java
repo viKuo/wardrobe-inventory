@@ -3,6 +3,7 @@ package com.vivienlk.wardrobeinventory.UI;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -145,7 +146,31 @@ public class AddItemActivityFragment extends Fragment
         if (mPhotoFile != null && mPhotoFile.exists()) {
             Bitmap bitmap = PictureUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity());
             mPhoto.setImageBitmap(bitmap);
+            galleryAddPic();
         }
+    }
+
+    private void setPic() {
+        // Get the dimensions of the View
+        int targetW = mPhoto.getWidth();
+        int targetH = mPhoto.getHeight();
+
+        // Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(mPhotoFile.getPath(), bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        // Determine how much to scale down the image
+        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+        // Decode the image file into a Bitmap sized to fill the View
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+
+        Bitmap bitmap = BitmapFactory.decodeFile(mPhotoFile.getPath(), bmOptions);
+        mPhoto.setImageBitmap(bitmap);
     }
 
     @Override
@@ -158,5 +183,13 @@ public class AddItemActivityFragment extends Fragment
 
     private boolean isEmpty(EditText editText) {
         return editText.getText().toString().trim().length() == 0;
+    }
+
+    private void galleryAddPic() {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(mWardrobeItem.getPhotoUriPath());
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        getActivity().sendBroadcast(mediaScanIntent);
     }
 }

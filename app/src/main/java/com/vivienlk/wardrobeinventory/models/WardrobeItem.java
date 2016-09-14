@@ -142,14 +142,27 @@ public class WardrobeItem implements Parcelable{
     }
 
     public Bitmap getPhoto() {
-        try {
-            File f = new File(mPhotoUri.getPath());
-            Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(f));
-            return bitmap;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
+        File f = new File(mPhotoUri.getPath());
+        // Get the dimensions of the View
+        int targetW = 148;
+        int targetH = 196;
+
+        // Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(mPhotoUri.getPath(), bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        // Determine how much to scale down the image
+        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+        // Decode the image file into a Bitmap sized to fill the View
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+
+        Bitmap bitmap = BitmapFactory.decodeFile(mPhotoUri.getPath(), bmOptions);
+        return bitmap;
     }
 
     private String getPhotoFilename() {

@@ -21,13 +21,13 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.execSQL("create table " + WardrobeTable.NAME + "(" +
             " _id integer primary key autoincrement, " +
                 WardrobeTable.Cols.UUID + ", " +
+                WardrobeTable.Cols.PHOTOURI + ", " +
                 WardrobeTable.Cols.ITEM + ", " +
                 WardrobeTable.Cols.DATE + ", " +
                 WardrobeTable.Cols.COLORS + ", " +
                 WardrobeTable.Cols.TEXTURES + ", " +
                 WardrobeTable.Cols.OCCASIONS + ", " +
                 WardrobeTable.Cols.SEASONS + ", " +
-                WardrobeTable.Cols.FIT + ", " +
                 WardrobeTable.Cols.LENGTH + ", " +
                 WardrobeTable.Cols.PRICE + ", " +
                 WardrobeTable.Cols.BRAND + ")"
@@ -37,6 +37,9 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        if (oldVersion <= 2) {
+            db.execSQL("ALTER TABLE " + WardrobeTable.NAME + " ADD COLUMN " + WardrobeTable.Cols.PHOTOURI + " TEXT;");
+            db.execSQL("ALTER TABLE " + WardrobeTable.NAME + " DROP COLUMN " + WardrobeTable.Cols.FIT + ";");
+        }
     }
 }
