@@ -71,7 +71,6 @@ public class Wardrobe {
             String textures = getString(getColumnIndex(WardrobeDbSchema.WardrobeTable.Cols.TEXTURES));
             String occasions = getString(getColumnIndex(WardrobeDbSchema.WardrobeTable.Cols.OCCASIONS));
             String seasons = getString(getColumnIndex(WardrobeDbSchema.WardrobeTable.Cols.SEASONS));
-            String fit = getString(getColumnIndex(WardrobeDbSchema.WardrobeTable.Cols.FIT));
             String length = getString(getColumnIndex(WardrobeDbSchema.WardrobeTable.Cols.LENGTH));
             double price  = Double.parseDouble(getString(getColumnIndex(WardrobeDbSchema.WardrobeTable.Cols.PRICE)));
             String brand = getString(getColumnIndex(WardrobeDbSchema.WardrobeTable.Cols.BRAND));
